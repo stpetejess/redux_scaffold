@@ -1,0 +1,19 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "VhiDeE1lr4ewt6ycXH7jiJhMNgg=",
+			"path": "github.com/alexflint/go-arg",
+			"revision": "6de9e789a982b5708c535308315c3d1d54217612",
+			"revisionTime": "2019-05-03T20:14:44Z"
+		},
+		{
+			"checksumSHA1": "78e2t7b8nLZP73NgVQfowx0Rqsw=",
+			"path": "github.com/alexflint/go-scalar",
+			"revision": "6638fbbc28f9ad0136ef5fd84a15c995e08e161f",
+			"revisionTime": "2018-11-20T20:00:02Z"
+		}
+	],
+	"rootPath": "github.com/stpetejess/redux_scaffold"
+}
