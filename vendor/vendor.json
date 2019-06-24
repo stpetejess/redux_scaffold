@@ -13,6 +13,12 @@
 			"path": "github.com/alexflint/go-scalar",
 			"revision": "6638fbbc28f9ad0136ef5fd84a15c995e08e161f",
 			"revisionTime": "2018-11-20T20:00:02Z"
+		},
+		{
+			"checksumSHA1": "WEoL5MWpxoLzwyzXVFx9Uri2gBI=",
+			"path": "github.com/iancoleman/strcase",
+			"revision": "e506e3ef73653e84c592ba44aab577a46678f68c",
+			"revisionTime": "2019-04-22T22:58:06Z"
 		}
 	],
 	"rootPath": "github.com/stpetejess/redux_scaffold"

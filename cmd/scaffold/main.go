@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	args "github.com/alexflint/go-arg"
+	strcase "github.com/iancoleman/strcase"
 )
 
 var (
@@ -21,40 +22,55 @@ type Args struct {
 	Location               string `help:"where to create the js files...defaults to ."`
 }
 
-func (a *Args) Transform() {
+func (a *Args) transform() {
 	a.Name = strings.ToLower(a.Name)
-	a.SanitizedName = reg.ReplaceAllString(a.Name, "")
+	a.SanitizedName = strcase.ToCamel(a.Name) //reg.ReplaceAllString(a.Name, "")
 	a.UppercaseSanitizedName = strings.ToUpper(a.SanitizedName)
+	if len(a.Location) < 1 {
+		a.Location = "."
+	}
 
-	fmt.Printf("n: %s sn: %s usn: %s\n", a.Name, a.SanitizedName, a.UppercaseSanitizedName)
+	log("n: %s sn: %s usn: %s loc: %s", a.Name, a.SanitizedName, a.UppercaseSanitizedName, a.Location)
 }
 
 func main() {
 	a := Args{}
 	args.MustParse(&a)
-	a.Transform()
+	a.transform()
 
-	paths := []string{"constant", "action", "reducer", "style", "container", "component"}
-	for _, path := range paths {
+	files := []string{"constant", "action", "reducer", "style", "container", "component"}
+	for _, fname := range files {
 		// now do the template thing
-		t, err := template.ParseFiles(fmt.Sprintf("../../templates/%s.tpl", path))
+		t, err := template.ParseFiles(fmt.Sprintf("../../templates/%s.tpl", fname))
 		if err != nil {
-			fmt.Printf("Error parsing template: %s\n", err)
+			log("Error parsing template: %s", err)
 			return
 		}
-		fmt.Printf("Creating ./%s.js\n", path)
+		pre := fmt.Sprintf("%s/%s", a.Location, strcase.ToKebab(a.SanitizedName))
+		if _, err := os.Stat(pre); os.IsNotExist(err) {
+			log("Creating folder %s", pre)
+			os.Mkdir(pre, os.ModePerm)
+		}
+		path := fmt.Sprintf("%s/%s", pre, fname)
 
-		f, err := os.Create(fmt.Sprintf("./%s.js", path))
+		log("Creating %s.js", path)
+
+		f, err := os.Create(fmt.Sprintf("%s.js", path))
 		defer f.Close()
 		if err != nil {
-			fmt.Println("create file: ", err)
+			log("create file: %s", err)
 			return
 		}
 		if err = t.Execute(f, a); err != nil {
-			fmt.Printf("Error executing template: %s\n", err)
+			log("Error executing template: %s", err)
 			return
 		}
-		fmt.Printf(`Success!`)
+		log(`Success!`)
 	}
 	return
+}
+
+func log(msg string, alltheargs ...interface{}) {
+	msg = fmt.Sprintf("\n%s\n", msg)
+	fmt.Printf(msg, alltheargs...)
 }
