@@ -18,12 +18,14 @@ var (
 type Args struct {
 	Name                   string `arg:"required" help:"name of folder to create"`
 	SanitizedName          string `arg:"-"`
+	LowerSanitizedName     string `arg:"-"`
 	UppercaseSanitizedName string `arg:"-"`
 	Location               string `help:"where to create the js files...defaults to ."`
 }
 
 func (a *Args) transform() {
 	a.Name = strings.ToLower(a.Name)
+	a.LowerSanitizedName = strcase.ToLowerCamel(a.Name)
 	a.SanitizedName = strcase.ToCamel(a.Name) //reg.ReplaceAllString(a.Name, "")
 	a.UppercaseSanitizedName = strings.ToUpper(a.SanitizedName)
 	if len(a.Location) < 1 {

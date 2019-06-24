@@ -4,17 +4,18 @@ import { withStyles } from '@material-ui/core/styles'
 
 import styles from './styles'
 
-const Component = ({ classes, {{.SanitizedName}} }) => {
+const Component = ({ classes, name, {{.SanitizedName}} }) => {
     return (
         <div className={classes.root}>
-            { `Hello ${ {{.SanitizedName}} }` }
+            { `Hello ${ name }` }
         </div>
     )
 }
 
 Component.PropTypes = {
     classes: PropTypes.object.isRequired,
-    {{.SanitizedName}}: PropTypes.func.isRequired
+    name: PropTypes.string.isRequired,
+    {{.SanitizedName}}Action: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(Component)

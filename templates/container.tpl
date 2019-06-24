@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Component from './component'
-import { {{.SanitizedName}} } from './action'
+import { {{.SanitizedName}}Action } from './action'
 
 class Container extends React.Component {
     render() {
@@ -10,5 +10,5 @@ class Container extends React.Component {
     }
 }
 export default connect((s) => {
-    return s.{{.SanitizedName}}
-}, { {{.SanitizedName}} })(Container)
+    return s.{{.LowerSanitizedName}}
+}, { {{.SanitizedName}}Action })(Container)

@@ -1,6 +1,6 @@
 import { {{.UppercaseSanitizedName}} } from './constant'
 
-export function {{.SanitizedName}}() {
+export function {{.SanitizedName}}Action() {
     return (d, gs) => {
         d({
             type: {{.UppercaseSanitizedName}},

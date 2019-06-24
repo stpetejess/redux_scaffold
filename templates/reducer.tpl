@@ -1,6 +1,6 @@
 import { {{.UppercaseSanitizedName}} } from './constant'
 
-export function {{.SanitizedName}}(store={}, action) {
+export default function {{.LowerSanitizedName}}(store={}, action) {
     switch(action.type) {
         case {{.UppercaseSanitizedName}}: {
             return {
